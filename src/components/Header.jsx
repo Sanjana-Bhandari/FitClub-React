@@ -28,7 +28,7 @@ useEffect(() => {
     {!menuOpened ? (
       <div
         style={{
-          backgroundColor: "var(--appColor)",
+          // backgroundColor: "var(--appColor)",
           padding: "0.5rem",
           borderRadius: "5px",
           cursor: "pointer",
