@@ -1,40 +1,60 @@
-import React, { useRef } from 'react'
-import './Join.css'
-import emailjs from '@emailjs/browser'
+import React, { useState } from "react";
+import "./Join.css";
+import axios from "axios";
 
 const Join = () => {
-    const form = useRef()
+  const [email, setEmail] = useState("");
 
-    const sendEmail = (e) => {
-        e.preventDefault();
-        emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form.current, 'YOUR_USER_ID')
-        .then((result) => {
-            console.log(result.text);
-        }, (error) => {
-            console.log(error.text);
-        });
-    };
+  const subscribe = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/users/newsletter",
+        {
+          email,
+        }
+      );
+
+      alert(res.data.message);
+      setEmail("");
+    } catch (error) {
+      alert(error.response?.data?.message || "Something went wrong");
+    }
+  };
+
   return (
-    <div className='Join' id='join-us'>
-        <div className='left-j'>
-            <hr />
-            <div>
-                <span className='stroke-text'>READY TO</span>
-                <span>LEVEL UP</span>
-            </div>
-             <div>
-                <span>YOUR BODY</span>
-                <span className='stroke-text'>WITH US?</span>
-            </div>
+    <div className="Join" id="join-us">
+      <div className="left-j">
+        <hr />
+        <div>
+          <span className="stroke-text">READY TO</span>
+          <span>LEVEL UP</span>
         </div>
-        <div className='right-j'>
-            <form ref={form} className='email-container' onSubmit={sendEmail}>
-                <input type="email" name='user-email' placeholder='Enter your Email address' />
-                <button className='btn1 btn-j'>Join Now</button>
-            </form>
-        </div>
-    </div>
-  )
-}
 
-export default Join
+        <div>
+          <span>YOUR BODY</span>
+          <span className="stroke-text">WITH US?</span>
+        </div>
+      </div>
+
+      <div className="right-j">
+        <form className="email-container" onSubmit={subscribe}>
+          <input
+            type="email"
+            placeholder="Enter your Email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
+          <button className="btn1 btn-j">
+            Join Now
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default Join;
