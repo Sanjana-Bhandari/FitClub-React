@@ -47,9 +47,9 @@ const Join = () => {
             required
           />
 
-          <button className="btn1 btn-j">
-            Join Now
-          </button>
+          <button className="btn1 btn-j" type="submit">
+  Subscribe
+</button>
         </form>
       </div>
     </div>

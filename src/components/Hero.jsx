@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from "react";
+import axios from "axios";
 import './Hero.css'
 import Header from './Header'
 import hero_image from "../assets/hero_image.png";
@@ -9,8 +10,40 @@ import NumberCounter from 'number-counter'
 import {motion} from 'framer-motion'
 const Hero = () => {
 
+  const [showModal, setShowModal] = useState(false);
+  const [name, setName] = useState("");
+const [email, setEmail] = useState("");
+const [phone, setPhone] = useState("");
+const [plan, setPlan] = useState("");
+
   const transition = {type: 'spring', duration : 3}
   const mobile = window.innerWidth<=768 ? true: false;
+
+  const submitMembership = async () => {
+  try {
+    const res = await axios.post(
+      "https://fitclub-backend-hkx2.onrender.com/api/users/membership",
+      {
+        name,
+        email,
+        phone,
+        plan,
+      }
+    );
+
+    alert(res.data.message);
+
+    setName("");
+    setEmail("");
+    setPhone("");
+    setPlan("");
+
+    setShowModal(false);
+
+  } catch (error) {
+    alert(error.response?.data?.message || "Something went wrong");
+  }
+};
   return (
     <div className='hero' id='home'>
       <div className='blur hero-blur'></div>
@@ -67,7 +100,12 @@ const Hero = () => {
         </div>
       </div>
       <div className='right-h'>
-        <button className='btn'>Join Now</button>
+        <button
+  className="btn"
+  onClick={() => setShowModal(true)}
+>
+  Join Now
+</button>
         <motion.div
         initial={{right: "-1rem"}}
         whileInView={{right: "4rem"}}
@@ -96,6 +134,66 @@ const Hero = () => {
           </div>
         </motion.div>
       </div>
+            {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-box">
+
+            <h2>Join FitClub</h2>
+
+            <input
+  type="text"
+  placeholder="Full Name"
+  className="modal-input"
+  value={name}
+  onChange={(e) => setName(e.target.value)}
+/>
+
+           <input
+  type="email"
+  placeholder="Email Address"
+  className="modal-input"
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+/>
+
+           <input
+  type="tel"
+  placeholder="Phone Number"
+  className="modal-input"
+  value={phone}
+  onChange={(e) => setPhone(e.target.value)}
+/>
+
+           <select
+  className="modal-input"
+  value={plan}
+  onChange={(e) => setPlan(e.target.value)}
+>
+  <option value="">Select Membership Plan</option>
+  <option value="Basic">Basic</option>
+  <option value="Premium">Premium</option>
+  <option value="Pro">Pro</option>
+</select>
+            <div className="modal-buttons">
+
+              <button
+  className="btn"
+  onClick={submitMembership}
+>
+  Submit
+</button>
+              <button
+                className="btn"
+                onClick={() => setShowModal(false)}
+              >
+                Close
+              </button>
+
+            </div>
+
+          </div>
+        </div>
+      )}
     </div>
   )
 }
