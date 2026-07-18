@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const Newsletter = require("../models/Newsletter");
+const Member = require("../models/Member");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -112,8 +113,48 @@ const subscribeNewsletter = async (req, res) => {
   }
 };
 
+// ================= GET ALL SUBSCRIBERS =================
+const getSubscribers = async (req, res) => {
+  try {
+    const subscribers = await Newsletter.find().sort({ createdAt: -1 });
+
+    res.status(200).json(subscribers);
+
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+// ================= JOIN MEMBERSHIP =================
+const joinMembership = async (req, res) => {
+  try {
+    const { name, email, phone, plan } = req.body;
+
+    const member = await Member.create({
+      name,
+      email,
+      phone,
+      plan,
+    });
+
+    res.status(201).json({
+      message: "Membership Submitted Successfully",
+      member,
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
   subscribeNewsletter,
+  getSubscribers,
+   joinMembership,
 };
