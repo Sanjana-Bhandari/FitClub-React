@@ -21,6 +21,31 @@ const memberSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+
+    duration: {
+      type: String,
+      default: "",
+    },
+
+    trainer: {
+      type: String,
+      default: "",
+    },
+
+    timing: {
+      type: String,
+      default: "",
+    },
+
+    goal: {
+      type: String,
+      default: "",
+    },
+
+    dietPlan: {
+      type: String,
+      default: "",
+    },
   },
   {
     timestamps: true,

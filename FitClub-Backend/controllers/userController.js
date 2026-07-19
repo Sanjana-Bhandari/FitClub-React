@@ -128,26 +128,47 @@ const getSubscribers = async (req, res) => {
 };
 
 // ================= JOIN MEMBERSHIP =================
+// ================= JOIN MEMBERSHIP =================
 const joinMembership = async (req, res) => {
   try {
-    const { name, email, phone, plan } = req.body;
+
+    const {
+      name,
+      email,
+      phone,
+      plan,
+      duration,
+      trainer,
+      timing,
+      goal,
+      dietPlan,
+    } = req.body;
 
     const member = await Member.create({
       name,
       email,
       phone,
       plan,
+      duration,
+      trainer,
+      timing,
+      goal,
+      dietPlan,
     });
 
     res.status(201).json({
+      success: true,
       message: "Membership Submitted Successfully",
       member,
     });
 
   } catch (error) {
+
     res.status(500).json({
+      success: false,
       message: error.message,
     });
+
   }
 };
 
