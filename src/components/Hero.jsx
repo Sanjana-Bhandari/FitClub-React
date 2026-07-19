@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-scroll";
 import axios from "axios";
 import './Hero.css'
 import Header from './Header'
@@ -22,7 +23,7 @@ const [plan, setPlan] = useState("");
   const submitMembership = async () => {
   try {
     const res = await axios.post(
-      "https://fitclub-backend-hkx2.onrender.com/api/users/membership",
+      "http://localhost:5000/api/users/membership",
       {
         name,
         email,
@@ -95,8 +96,22 @@ const [plan, setPlan] = useState("");
         </div>
         {/* hero button */}
         <div className='hero-buttons'>
-          <button className="btn">Get Started</button>
-          <button className="btn">Learn More</button>
+         <button
+  className="btn"
+  onClick={() => setShowModal(true)}
+>
+  Get Started
+</button>
+          <button className="btn">
+  <Link
+    to="plans"
+    smooth={true}
+    duration={500}
+    style={{ color: "inherit", textDecoration: "none" }}
+  >
+    Learn More
+  </Link>
+</button>
         </div>
       </div>
       <div className='right-h'>
