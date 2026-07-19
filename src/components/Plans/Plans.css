@@ -75,9 +75,84 @@
     .plans>:nth-child(2){
         transform: none;
     }
+}
+/* ================= PLAN POPUP ================= */
 
+.plan-popup-overlay{
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100vh;
+    background:rgba(0,0,0,.75);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
 
+.plan-popup{
+    width:420px;
+    background:#1f1f1f;
+    border:2px solid var(--orange);
+    border-radius:12px;
+    padding:2rem;
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+    color:white;
+    box-shadow:0 0 25px rgba(0,0,0,.5);
+}
 
+.plan-popup h2{
+    text-align:center;
+    color:var(--orange);
+    margin-bottom:.5rem;
+}
 
-    
+.plan-popup input,
+.plan-popup select{
+    /* width:100%; */
+    padding:.8rem 1rem;
+    border:1px solid gray;
+    border-radius:5px;
+    background:transparent;
+    color:white;
+    outline:none;
+    font-size:.95rem;
+}
+
+.plan-popup input::placeholder{
+    color:#ccc;
+}
+
+.plan-popup option{
+    color:black;
+}
+
+.popup-buttons{
+    display:flex;
+    justify-content:center;
+    gap:1rem;
+    margin-top:.5rem;
+}
+
+.popup-buttons .btn{
+    width:8rem;
+}
+
+@media(max-width:768px){
+
+.plan-popup{
+    width:70%;
+}
+
+.popup-buttons{
+    flex-direction:column;
+}
+
+.popup-buttons .btn{
+    width:100%;
+}
+
 }
