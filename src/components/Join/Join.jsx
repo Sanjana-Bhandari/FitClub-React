@@ -10,7 +10,7 @@ const Join = () => {
 
     try {
       const res = await axios.post(
-  "http://localhost:5000/api/users/newsletter",
+  "https://fitclub-backend-hkx2.onrender.com/api/users/newsletter",
   {
     email,
   }

@@ -23,7 +23,7 @@ const [plan, setPlan] = useState("");
   const submitMembership = async () => {
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/users/membership",
+      "https://fitclub-backend-hkx2.onrender.com/api/users/membership",
       {
         name,
         email,
